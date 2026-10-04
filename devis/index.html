@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Votre devis 2027 · NeoProd</title>
+<meta name="description" content="Composez votre devis NeoProd 2027 et recevez-le directement sur WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1b1a19;
+    --card: #232120;
+    --card-on: #2b2722;
+    --line: #3a3632;
+    --text: #f2eee8;
+    --muted: #a9a29a;
+    --gold: #c9a66b;
+    --gold-soft: rgba(201, 166, 107, .14);
+    --error: #e07a6a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 300 16px/1.55 "Jost", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1010px; margin: 0 auto; padding: 0 16px 120px; }
+  header { text-align: center; padding: 48px 0 28px; }
+  .eyebrow { color: var(--gold); font-size: 12px; letter-spacing: .35em; text-transform: uppercase; }
+  h1 { font-weight: 300; font-size: clamp(34px, 7vw, 56px); letter-spacing: .12em; margin: 18px 0 6px; }
+  .script { font-family: "Dancing Script", cursive; color: var(--gold); font-size: clamp(20px, 4vw, 26px); }
+  .rule { width: 64px; height: 1px; background: var(--line); margin: 26px auto 0; }
+
+  section.step { margin-top: 48px; }
+  .step-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .step-head .num { color: var(--gold); font-size: 12px; letter-spacing: .3em; white-space: nowrap; text-transform: uppercase; }
+  .step-head .bar { flex: 1; height: 1px; background: var(--line); }
+  h2 { font-weight: 300; font-size: clamp(22px, 4vw, 30px); letter-spacing: .14em; text-transform: uppercase; margin: 0 0 18px; text-align: center; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .chip {
+    border: 1px solid var(--line); background: transparent; color: var(--text);
+    padding: 10px 18px; border-radius: 999px; font: 400 12px "Jost", sans-serif;
+    letter-spacing: .18em; text-transform: uppercase; cursor: pointer;
+  }
+  .chip:hover { border-color: var(--gold); }
+  .chip[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: #1b1a19; }
+
+  .formules { margin-bottom: 20px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .card {
+    position: relative; text-align: left; cursor: pointer; width: 100%;
+    background: var(--card); border: 1px solid var(--line); color: var(--text);
+    padding: 26px 22px 22px; font: inherit;
+    display: flex; flex-direction: column; justify-content: flex-start;
+  }
+  .card:hover { border-color: #5a5047; }
+  .card[aria-pressed="true"] { background: var(--card-on); border-color: var(--gold); }
+  .card .badge {
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: #1b1a19; font-size: 10px; font-weight: 500;
+    letter-spacing: .2em; padding: 3px 10px; text-transform: uppercase; white-space: nowrap;
+  }
+  .card .name { font-weight: 500; letter-spacing: .22em; text-transform: uppercase; font-size: 14px; }
+  .card .price { color: var(--gold); font-size: 40px; font-weight: 300; margin: 6px 0 12px; }
+  .card .price small { font-size: 13px; color: var(--muted); margin-left: 4px; }
+  .card ul { margin: 0; padding: 0; list-style: none; }
+  .card li { position: relative; padding-left: 16px; margin: 6px 0; font-size: 14.5px; }
+  .card li::before { content: ""; position: absolute; left: 0; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+  .card .check {
+    position: absolute; top: 18px; right: 18px; width: 22px; height: 22px; border-radius: 50%;
+    border: 1px solid var(--line); display: grid; place-items: center; color: #1b1a19; font-size: 13px;
+  }
+  .card[aria-pressed="true"] .check { background: var(--gold); border-color: var(--gold); }
+
+  .options { display: grid; gap: 10px; }
+  .opt {
+    display: flex; align-items: center; gap: 14px; background: var(--card);
+    border: 1px solid var(--line); padding: 14px 18px; cursor: pointer;
+  }
+  .opt:has(input:checked) { border-color: var(--gold); background: var(--card-on); }
+  .opt input { accent-color: var(--gold); width: 18px; height: 18px; flex: none; }
+  .opt .label { flex: 1; }
+  .opt .label small { display: block; color: var(--muted); font-size: 13px; }
+  .opt .p { color: var(--gold); white-space: nowrap; }
+
+  .empty { color: var(--muted); text-align: center; padding: 22px; border: 1px dashed var(--line); }
+
+  form .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  label.f { display: block; }
+  label.f span { display: block; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  label.f span em { color: var(--gold); font-style: normal; }
+  input[type=text], input[type=email], input[type=tel], input[type=date], select, textarea {
+    width: 100%; background: var(--card); border: 1px solid var(--line); color: var(--text);
+    font: 300 16px "Jost", sans-serif; padding: 12px 14px; border-radius: 0; color-scheme: dark;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); }
+  .phone { display: flex; gap: 8px; }
+  .phone select { width: 120px; flex: none; }
+  .err { color: var(--error); font-size: 13px; min-height: 18px; margin-top: 4px; }
+  .invalid { border-color: var(--error) !important; }
+  .full { grid-column: 1 / -1; }
+  textarea { min-height: 90px; resize: vertical; }
+
+  .recap { background: var(--card); border: 1px solid var(--gold); padding: 24px 22px; margin-top: 28px; }
+  .recap h3 { margin: 0 0 14px; font-weight: 400; letter-spacing: .22em; text-transform: uppercase; font-size: 14px; color: var(--gold); }
+  .recap .row { display: flex; justify-content: space-between; gap: 16px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .recap .row:last-of-type { border-bottom: 0; }
+  .recap .total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--gold); }
+  .recap .total b { font-weight: 300; color: var(--gold); font-size: 30px; }
+  .recap .note { color: var(--muted); font-size: 13px; margin-top: 8px; }
+
+  .send {
+    display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+    margin-top: 22px; padding: 16px; border: 0; cursor: pointer; background: var(--gold); color: #1b1a19;
+    font: 500 14px "Jost", sans-serif; letter-spacing: .2em; text-transform: uppercase;
+  }
+  .send:hover { filter: brightness(1.07); }
+  .send svg { width: 20px; height: 20px; }
+  .legal { color: var(--muted); font-size: 12.5px; text-align: center; margin-top: 12px; }
+
+  .sticky {
+    position: fixed; left: 0; right: 0; bottom: 0; background: rgba(27, 26, 25, .96);
+    border-top: 1px solid var(--line); padding: 12px 16px; backdrop-filter: blur(6px);
+  }
+  .sticky .in { max-width: 1010px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .sticky .t { font-size: 13px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+  .sticky .t b { display: block; color: var(--gold); font-size: 22px; font-weight: 300; letter-spacing: 0; text-transform: none; }
+  .sticky a { color: #1b1a19; background: var(--gold); text-decoration: none; padding: 10px 16px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Neo Prod Israël · depuis 1999 · tarifs 2027</div>
+    <h1>VOTRE DEVIS</h1>
+    <div class="script">composez votre formule, recevez-la sur WhatsApp</div>
+    <div class="rule"></div>
+  </header>
+
+  <section class="step" id="s-type">
+    <div class="step-head"><span class="num">1 · Votre événement</span><span class="bar"></span></div>
+    <div class="chips" id="types"></div>
+  </section>
+
+  <section class="step" id="s-forfait">
+    <div class="step-head"><span class="num">2 · Votre forfait</span><span class="bar"></span></div>
+    <h2 id="forfait-title"></h2>
+    <div class="chips formules" id="formules"></div>
+    <div class="grid" id="forfaits"></div>
+  </section>
+
+  <section class="step" id="s-options">
+    <div class="step-head"><span class="num">3 · Vos options</span><span class="bar"></span></div>
+    <div class="options" id="options"></div>
+  </section>
+
+  <section class="step" id="s-contact">
+    <div class="step-head"><span class="num">4 · Vos coordonnées</span><span class="bar"></span></div>
+    <form id="form" novalidate>
+      <div class="fields">
+        <label class="f"><span>Prénom <em>*</em></span><input type="text" name="prenom" autocomplete="given-name" required><div class="err"></div></label>
+        <label class="f"><span>Nom <em>*</em></span><input type="text" name="nom" autocomplete="family-name" required><div class="err"></div></label>
+        <label class="f"><span>E-mail <em>*</em></span><input type="email" name="email" autocomplete="email" required><div class="err"></div></label>
+        <label class="f"><span>Votre WhatsApp <em>*</em></span>
+          <div class="phone">
+            <select name="indicatif" aria-label="Indicatif">
+              <option value="972">🇮🇱 +972</option>
+              <option value="33">🇫🇷 +33</option>
+              <option value="32">🇧🇪 +32</option>
+              <option value="41">🇨🇭 +41</option>
+              <option value="1">🇺🇸 +1</option>
+              <option value="44">🇬🇧 +44</option>
+            </select>
+            <input type="tel" name="tel" autocomplete="tel-national" inputmode="tel" placeholder="54 123 4567" required>
+          </div>
+          <div class="err"></div>
+        </label>
+        <label class="f"><span>Date de l'événement</span><input type="date" name="date"><div class="err"></div></label>
+        <label class="f"><span>Lieu</span><input type="text" name="lieu" placeholder="Salle, ville"><div class="err"></div></label>
+        <label class="f full"><span>Un mot pour nous</span><textarea name="message"></textarea></label>
+      </div>
+
+      <div class="recap" id="recap"></div>
+
+      <button type="submit" class="send">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+        Recevoir mon devis sur WhatsApp
+      </button>
+      <p class="legal">WhatsApp s'ouvre avec votre devis prêt à être envoyé sur votre propre numéro. Il ne vous reste qu'à appuyer sur « Envoyer ».</p>
+    </form>
+  </section>
+</div>
+
+<div class="sticky"><div class="in">
+  <div class="t">Total estimé<b id="sticky-total">—</b></div>
+  <a href="#s-contact">Recevoir mon devis</a>
+</div></div>
+
+<script>
+/*
+ * Catalogue des tarifs 2027.
+ * price: montant en ₪ TTC, ou null pour « sur devis » (non compté dans le total).
+ * Seuls les forfaits Mariage · Photo + Vidéo sont repris de la page Tarifs 2027 ;
+ * les autres montants sont à compléter.
+ */
+const CATALOG = {
+  currency: "₪",
+  events: [
+    {
+      id: "mariage", label: "Mariage", title: "Forfaits mariage",
+      formules: [
+        {
+          id: "photo-video", label: "Photo + vidéo",
+          forfaits: [
+            { id: "bronze", name: "Bronze", price: 17000, items: ["1 photographe + 1 caméraman", "Préparatifs → soirée", "Film version longue + Best of", "1 grand album 40×30cm", "Drone inclus (si autorisations)"] },
+            { id: "silver", name: "Silver", price: 23000, badge: "Le plus choisi", items: ["2 photographes + 2 caméramans", "Film + Best of cinéma", "1 grand album 40×30cm", "+ 2 albums 30×20cm parents", "Drone inclus (si autorisations)"] },
+            { id: "ultimate", name: "Ultimate", price: 28000, items: ["3 photographes + 3 caméramans", "Film + Best of cinéma", "Glam' Studio + clip photo le soir", "1 grand album 40×30cm + 2 albums parents 30×20cm", "Drone inclus (si autorisations)"] }
+          ]
+        },
+        {
+          id: "photo", label: "Photo seule",
+          forfaits: [
+            { id: "bronze", name: "Bronze", price: null, items: [] },
+            { id: "silver", name: "Silver", price: null, items: [] },
+            { id: "ultimate", name: "Ultimate", price: null, items: [] }
+          ]
+        }
+      ]
+    },
+    { id: "bar-mitsvah", label: "Bar Mitsvah", title: "Forfaits Bar Mitsvah", formules: [] },
+    { id: "bat-mitsvah", label: "Bat Mitsvah", title: "Forfaits Bat Mitsvah", formules: [] },
+    { id: "syna-only", label: "Syna only", title: "Forfaits Syna only", formules: [] },
+    { id: "brit-mila", label: "Brit Mila", title: "Forfaits Brit Mila", formules: [] },
+    { id: "coupe-de-cheveux", label: "Coupe de cheveux", title: "Forfaits coupe de cheveux", formules: [] }
+  ],
+  // Options communes ; « only » limite une option à certains événements.
+  options: [
+    { id: "glam-studio", label: "Glam' Studio", price: null },
+    { id: "live-video", label: "Live vidéo", price: null },
+    { id: "album-parents", label: "Album parents 30×20cm supplémentaire", price: null },
+    { id: "drone", label: "Drone (forfaits sans drone)", price: null }
+  ]
+};
+
+const $ = (s, el = document) => el.querySelector(s);
+const fmt = n => n.toLocaleString("fr-FR").replace(/ | /g, " ") + " " + CATALOG.currency;
+const state = { event: CATALOG.events[0].id, formule: null, forfait: null, options: new Set() };
+
+const currentEvent = () => CATALOG.events.find(e => e.id === state.event);
+const currentFormule = () => currentEvent().formules.find(f => f.id === state.formule);
+const currentForfait = () => currentFormule()?.forfaits.find(f => f.id === state.forfait);
+const availableOptions = () => CATALOG.options.filter(o => !o.only || o.only.includes(state.event));
+
+function renderTypes() {
+  $("#types").innerHTML = "";
+  for (const e of CATALOG.events) {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.textContent = e.label;
+    b.setAttribute("aria-pressed", e.id === state.event);
+    b.onclick = () => {
+      state.event = e.id;
+      state.formule = e.formules[0]?.id ?? null;
+      state.forfait = null;
+      state.options = new Set([...state.options].filter(id => availableOptions().some(o => o.id === id)));
+      render();
+    };
+    $("#types").append(b);
+  }
+}
+
+function renderForfaits() {
+  const ev = currentEvent();
+  $("#forfait-title").textContent = ev.title;
+  const fm = $("#formules"); fm.innerHTML = "";
+  if (ev.formules.length > 1) for (const f of ev.formules) {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.textContent = f.label;
+    b.setAttribute("aria-pressed", f.id === state.formule);
+    b.onclick = () => { state.formule = f.id; state.forfait = null; render(); };
+    fm.append(b);
+  }
+  const grid = $("#forfaits"); grid.innerHTML = "";
+  const formule = currentFormule();
+  if (!formule) {
+    grid.innerHTML = '<div class="empty">Les forfaits de cet événement sont établis sur devis. Remplissez vos coordonnées, nous revenons vers vous.</div>';
+    return;
+  }
+  for (const f of formule.forfaits) {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "card";
+    b.setAttribute("aria-pressed", f.id === state.forfait);
+    b.innerHTML =
+      (f.badge ? `<span class="badge">${f.badge}</span>` : "") +
+      `<span class="check">✓</span><div class="name">${f.name}</div>` +
+      `<div class="price">${f.price != null ? fmt(f.price).replace(" " + CATALOG.currency, "") + `<small>${CATALOG.currency} TTC</small>` : '<small style="margin:0">sur devis</small>'}</div>` +
+      `<ul>${f.items.map(i => `<li>${i}</li>`).join("")}</ul>`;
+    b.onclick = () => { state.forfait = state.forfait === f.id ? null : f.id; render(); };
+    grid.append(b);
+  }
+}
+
+function renderOptions() {
+  const box = $("#options"); box.innerHTML = "";
+  for (const o of availableOptions()) {
+    const l = document.createElement("label"); l.className = "opt";
+    l.innerHTML = `<input type="checkbox"><span class="label">${o.label}${o.desc ? `<small>${o.desc}</small>` : ""}</span>` +
+      `<span class="p">${o.price != null ? "+ " + fmt(o.price) : "sur devis"}</span>`;
+    const cb = $("input", l);
+    cb.checked = state.options.has(o.id);
+    cb.onchange = () => { cb.checked ? state.options.add(o.id) : state.options.delete(o.id); renderRecap(); };
+    box.append(l);
+  }
+}
+
+function quote() {
+  const ev = currentEvent(), formule = currentFormule(), forfait = currentForfait();
+  const opts = availableOptions().filter(o => state.options.has(o.id));
+  const lines = [];
+  let total = 0, hasOnRequest = false;
+  const add = (label, price) => {
+    lines.push([label, price]);
+    if (price == null) hasOnRequest = true; else total += price;
+  };
+  if (forfait) add(`Forfait ${forfait.name}${formule && ev.formules.length > 1 ? " · " + formule.label : ""}`, forfait.price);
+  for (const o of opts) add(o.label, o.price);
+  return { ev, formule, forfait, lines, total, hasOnRequest };
+}
+
+function renderRecap() {
+  const q = quote();
+  const rows = q.lines.map(([l, p]) => `<div class="row"><span>${l}</span><span>${p != null ? fmt(p) : "sur devis"}</span></div>`).join("");
+  $("#recap").innerHTML =
+    `<h3>Récapitulatif · ${q.ev.label}</h3>` +
+    (rows || '<div class="row"><span style="color:var(--muted)">Choisissez un forfait et vos options ci-dessus.</span></div>') +
+    `<div class="total"><span>Total estimé TTC</span><b>${q.total ? fmt(q.total) : "—"}</b></div>` +
+    (q.hasOnRequest ? '<div class="note">Certains éléments sont sur devis et seront confirmés par NeoProd.</div>' : "");
+  $("#sticky-total").textContent = q.total ? fmt(q.total) : "—";
+}
+
+function render() { renderTypes(); renderForfaits(); renderOptions(); renderRecap(); }
+
+state.formule = currentEvent().formules[0]?.id ?? null;
+render();
+
+// Formulaire et envoi WhatsApp
+const form = $("#form");
+function setErr(input, msg) {
+  const box = input.closest("label.f");
+  $(".err", box).textContent = msg || "";
+  input.classList.toggle("invalid", !!msg);
+  return !msg;
+}
+function phoneDigits() {
+  let d = form.tel.value.replace(/\D/g, "");
+  if (d.startsWith(form.indicatif.value) && d.length > 9) d = d.slice(form.indicatif.value.length);
+  d = d.replace(/^0+/, "");
+  return d;
+}
+function validate() {
+  let ok = true;
+  ok = setErr(form.prenom, form.prenom.value.trim() ? "" : "Votre prénom est requis.") && ok;
+  ok = setErr(form.nom, form.nom.value.trim() ? "" : "Votre nom est requis.") && ok;
+  const email = form.email.value.trim();
+  ok = setErr(form.email, !email ? "Votre e-mail est requis." : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) ? "" : "Cet e-mail ne semble pas valide.") && ok;
+  const d = phoneDigits();
+  ok = setErr(form.tel, !d ? "Votre numéro WhatsApp est requis." : d.length >= 7 && d.length <= 12 ? "" : "Ce numéro ne semble pas valide.") && ok;
+  return ok;
+}
+for (const n of ["prenom", "nom", "email", "tel"]) form[n].addEventListener("input", () => form[n].classList.contains("invalid") && validate());
+
+function buildMessage() {
+  const q = quote();
+  const L = [];
+  L.push("*DEVIS NEOPROD 2027*", "");
+  L.push(`Client : ${form.prenom.value.trim()} ${form.nom.value.trim()}`);
+  L.push(`E-mail : ${form.email.value.trim()}`);
+  L.push(`WhatsApp : +${form.indicatif.value} ${phoneDigits()}`);
+  L.push(`Événement : ${q.ev.label}`);
+  if (form.date.value) L.push(`Date : ${new Date(form.date.value + "T12:00").toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}`);
+  if (form.lieu.value.trim()) L.push(`Lieu : ${form.lieu.value.trim()}`);
+  L.push("");
+  if (q.forfait) {
+    L.push(`*Forfait ${q.forfait.name}*${q.formule && q.ev.formules.length > 1 ? " · " + q.formule.label : ""} : ${q.forfait.price != null ? fmt(q.forfait.price) : "sur devis"}`);
+    for (const i of q.forfait.items) L.push(`  • ${i}`);
+  } else {
+    L.push("Forfait : à définir avec NeoProd");
+  }
+  const opts = q.lines.slice(q.forfait ? 1 : 0);
+  if (opts.length) {
+    L.push("", "*Options*");
+    for (const [l, p] of opts) L.push(`  • ${l} : ${p != null ? fmt(p) : "sur devis"}`);
+  }
+  L.push("", `*Total estimé TTC : ${q.total ? fmt(q.total) : "sur devis"}*`);
+  if (q.hasOnRequest) L.push("_Certains éléments sont sur devis et seront confirmés par NeoProd._");
+  if (form.message.value.trim()) L.push("", `Message : ${form.message.value.trim()}`);
+  L.push("", "Devis indicatif, sous réserve de disponibilité à la date choisie.", "neoprodwedding.com");
+  return L.join("\n");
+}
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  if (!validate()) { $(".invalid", form)?.focus(); return; }
+  const url = `https://wa.me/${form.indicatif.value}${phoneDigits()}?text=${encodeURIComponent(buildMessage())}`;
+  window.open(url, "_blank", "noopener");
+});
+</script>
+</body>
+</html>
